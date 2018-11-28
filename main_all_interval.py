@@ -53,22 +53,7 @@ session = os.listdir(base_path)
 session.remove('unique_recordings.mat')
 print(session)
 # '150210'
-for sess_no in['150427',
- '150504',
- '150416',
- '150428',
- '150430',
- '150413',
- '150415',
- '150528',
- '150414',
- '150511',
- '150512',
- '150403',
- '150527',
- '150429',
- '150608',
- '150529']: #session :  #session : # '150128', 150210 also a good session
+for sess_no in session :  #session : # '150128', 150210 also a good session
     print(sess_no)
     seed = np.random.randint(1,10000)
 
@@ -95,23 +80,13 @@ for sess_no in['150427',
             #lowcut2, highcut2, order2 = lowcut1, highcut1, order1
 
             window_size1 = 200
-            window_size2 = window_size1 #window_size1 ### 0.72
+            window_size2 = window_size1 
             step = 100
             delay = 0
 
 
-            select_elec_by = 'cortex' # 'areas' or 'cortex'
-
-            # if select_elec_by == 'areas':
-            #     areas1 = ['DP']
-            #     num1 = 3
-            #     areas2 = ['V1']
-            #     num2 = 1
-            #     cortex1='Prefontal'
-            #     cortex2='Prefontal'
-            # elif select_elec_by == 'cortex':
-            for cortex1 in ['Visual', 'Prefontal', 'Motor', 'Parietal']:#['Visual', 'Prefontal', 'Motor', 'Somatosensory', 'Parietal'] : #= 'Visual' # coding <U16
-                for cortex2 in ['Parietal'] : #cortex2 = 'Visual' # 
+            for cortex1 in ['Visual', 'Prefrontal', 'Motor', 'Somatosensory', 'Parietal'] :
+                for cortex2 in ['Visual', 'Prefrontal', 'Motor', 'Somatosensory', 'Parietal'] :  
                     print(cortex1, cortex2)
 
                     areas1 = io.get_area_cortex(rinfo_path, cortex1, unique = True)
