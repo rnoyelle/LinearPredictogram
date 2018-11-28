@@ -1,12 +1,4 @@
- 
-"""
-select sample -600 à 500 + 600
-+
-select match -600 à +600
 
-with stim
-
-"""
 import sys
 import os
 import os.path
