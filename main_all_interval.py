@@ -1,4 +1,12 @@
+ 
+"""
+select sample -600 à 500 + 600
++
+select match -600 à +600
 
+with stim
+
+"""
 import sys
 import os
 import os.path
@@ -59,8 +67,8 @@ for sess_no in session :  #session : # '150128', 150210 also a good session
     #lowcut, highcut, order = 30, 300, 3
 
 
-    align_on1, from_time1, to_time1 = 'sample', -800, 500 + 600 
-    align_on1_match, from_time1_match, to_time1_match = 'match', -600, 2000 
+    align_on1, from_time1, to_time1 = 'sample', -700, 500 + 600 
+    align_on1_match, from_time1_match, to_time1_match = 'match', -600, 1900 
 
     for lowcut1, highcut1, order1 in [[7,12,3]] : #[[7,12,3], [12,30,3]] : #= 8, 14, 3
         for lowcut2, highcut2, order2 in [[7,12,3]] :# [[7,12,3], [12,30,3]] :
@@ -72,13 +80,23 @@ for sess_no in session :  #session : # '150128', 150210 also a good session
             #lowcut2, highcut2, order2 = lowcut1, highcut1, order1
 
             window_size1 = 200
-            window_size2 = window_size1 
+            window_size2 = window_size1 #window_size1 ### 0.72
             step = 100
             delay = 0
 
 
-            for cortex1 in ['Visual', 'Prefrontal', 'Motor', 'Somatosensory', 'Parietal'] :
-                for cortex2 in ['Visual', 'Prefrontal', 'Motor', 'Somatosensory', 'Parietal'] :  
+            select_elec_by = 'cortex' # 'areas' or 'cortex'
+
+            # if select_elec_by == 'areas':
+            #     areas1 = ['DP']
+            #     num1 = 3
+            #     areas2 = ['V1']
+            #     num2 = 1
+            #     cortex1='Prefontal'
+            #     cortex2='Prefontal'
+            # elif select_elec_by == 'cortex':
+            for cortex1 in ['Visual', 'Prefrontal', 'Motor', 'Parietal', 'Somatosensory'] : #= 'Visual' # coding <U16
+                for cortex2 in ['Visual', 'Prefrontal', 'Motor', 'Parietal', 'Somatosensory'] : #cortex2 = 'Visual' # 
                     print(cortex1, cortex2)
 
                     areas1 = io.get_area_cortex(rinfo_path, cortex1, unique = True)
@@ -117,7 +135,7 @@ for sess_no in session :  #session : # '150128', 150210 also a good session
                                                                                                                 lowcut2, highcut2, 
                                                                                                                 areas2,
                                                                                                                 step, delay,
-                                                                                                                epsillon = 26, order = 3,
+                                                                                                                epsillon = 100, order = 3,
                                                                                                                 only_correct_trials = only_correct_trials, renorm = renorm )
 
 
@@ -133,7 +151,7 @@ for sess_no in session :  #session : # '150128', 150210 also a good session
                                                                                                                 lowcut2, highcut2, 
                                                                                                                 areas2,
                                                                                                                 step, delay,
-                                                                                                                epsillon = 26, order = 3,
+                                                                                                                epsillon = 100, order = 3,
                                                                                                                 only_correct_trials = only_correct_trials, renorm = renorm )
 
 
@@ -285,7 +303,7 @@ for sess_no in session :  #session : # '150128', 150210 also a good session
                                         where_first_part_end = 1+ int( (to_time1 - from_time1 - window_size1)/step )
                                         step_list = np.array(step_list)
                                         step_list[:where_first_part_end] = step_list[:where_first_part_end]  + from_time1 
-                                        step_list[where_first_part_end:] = step_list[where_first_part_end:]  + from_time1 + 2000 - where_first_part_end*step # 2000 = 500 + max( time of delay)                                         
+                                        step_list[where_first_part_end:] = step_list[where_first_part_end:]  + from_time1_match + 2000 - where_first_part_end*step # 2000 = 500 + max( time of delay)                                         
                                         step_list = step_list + int(window_size1/2)
                                         step_list = list(step_list)
                                             
